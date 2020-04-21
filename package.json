@@ -1,0 +1,26 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "TODO SPA built with react & redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaseebullahSafi/todo-app.git"
+  },
+  "keywords": [
+    "todo",
+    "spa",
+    "react",
+    "redux",
+    "styled-components"
+  ],
+  "author": "Naseebullah Ahmadi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NaseebullahSafi/todo-app/issues"
+  },
+  "homepage": "https://github.com/NaseebullahSafi/todo-app#readme"
+}
