@@ -15,5 +15,5 @@ before_script:
   - "yarn"
 
 script:
-  - yarn test
+  - yarn test -- -u
   - yarn run build
