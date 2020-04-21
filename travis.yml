@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - "stable"
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - node_modules
+
+before_script:
+  - "yarn"
+
+script:
+  - yarn test
+  - yarn run build
