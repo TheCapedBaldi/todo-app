@@ -1,0 +1,8 @@
+.DS_STORE
+node_modules
+build/
+dist/
+.module-cache
+.idea
+*.iml
+.vscode
