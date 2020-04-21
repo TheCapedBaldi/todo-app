@@ -47,7 +47,7 @@ module.exports = ({ mode } = { mode: "production" }) =>
       resolve: {
         extensions: ["*", ".js", ".jsx"],
         alias: {
-          components: path.resolve(__dirname, "./src/components"),
+          src: path.resolve(__dirname, "./src"),
         },
       },
       devServer: {
