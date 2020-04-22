@@ -3,6 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import { StyledForm, StyledFormInput } from "./Create.style";
 
-const Create = () => null;
+const Create = () => <StyledForm></StyledForm>;
 
 export default Create;
