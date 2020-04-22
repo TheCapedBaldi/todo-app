@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@400;500;600;700&display=swap');
   *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 
   html {
@@ -34,5 +34,19 @@ export const GlobalStyles = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+
+    &:focus {
+      offset: none;
+      outline: none;
+    }
   }
 `;
