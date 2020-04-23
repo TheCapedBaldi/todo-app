@@ -5,6 +5,10 @@ const StyledFlexRow = css`
   align-items: center;
 `;
 
+export const StyledContainer = styled.div`
+  ${StyledFlexRow};
+`;
+
 export const StyledTodo = styled.div`
   background-clip: initial;
   background-color: #fff;
@@ -45,12 +49,14 @@ export const StyledDateContainer = styled.div`
 `;
 
 export const StyledEditTodo = styled.a`
-  padding: 2px 5px;
+  ${StyledFlexRow};
+  padding: 5px;
   color: #d0d6e2;
   border: 1px dashed #d0d6e2;
   border-radius: 5px;
   transition: all 0.15s ease-in-out;
   margin-right: 1em;
+  justify-content: center;
 
   &:hover {
     border: 1px dashed transparent;
@@ -60,7 +66,8 @@ export const StyledEditTodo = styled.a`
 `;
 
 export const StyledDeleteTodo = styled.a`
-  padding: 2px 5px;
+  ${StyledFlexRow};
+  padding: 5px;
   color: #d0d6e2;
   border: 1px dashed #d0d6e2;
   border-radius: 5px;
