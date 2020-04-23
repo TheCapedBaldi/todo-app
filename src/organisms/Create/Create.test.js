@@ -29,7 +29,7 @@ describe("<Create />", () => {
 
   describe("Name input", () => {
     it("should capture name correctly onChange", () => {
-      const name = wrapper.find("#name").at(0);
+      const name = wrapper.find("input").at(0);
       name.instance().value = "Test";
       name.simulate("change");
       expect(setState).toHaveBeenCalledWith("Test");
@@ -38,7 +38,7 @@ describe("<Create />", () => {
 
   describe("Description input", () => {
     it("should capture description correctly onChange", () => {
-      const description = wrapper.find("#description").at(0);
+      const description = wrapper.find("textarea").at(0);
       description.instance().value = "Lorem ipsum";
       description.simulate("change");
       expect(setState).toHaveBeenCalledWith("Lorem ipsum");
