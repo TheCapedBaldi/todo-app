@@ -11,9 +11,9 @@ import {
 } from "./Create.style";
 
 const Create = ({ onSubmit }) => {
-  const [id, setId] = React.useState(uuidv4());
+  const [id, setId] = React.useState("");
   const [desc, setDesc] = React.useState("");
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState("");
   const [name, setName] = React.useState("");
 
   const handleChange = (e) => {
@@ -33,8 +33,7 @@ const Create = ({ onSubmit }) => {
    * string rules.
    */
   const validateForm = () => {
-    if (id === "" || desc === "" || date === "" || name === "") return false;
-
+    if (desc === "" || name === "") return false;
     return true;
   };
 
@@ -48,10 +47,10 @@ const Create = ({ onSubmit }) => {
     // is it a controlled component? This checks that.
     if (typeof onSubmit === "function") {
       onSubmit({
-        id,
+        id: uuidv4(),
         name,
         description: desc,
-        date,
+        date: new Date().toString(),
       });
       return;
     }
@@ -66,10 +65,10 @@ const Create = ({ onSubmit }) => {
         JSON.stringify([
           ...db,
           {
-            id,
+            id: uuidv4(),
             name,
             description: desc,
-            date,
+            date: new Date().toString(),
           },
         ])
       );
