@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Todo from "src/molecules/Todo";
-import { getAllTodos } from "src/Store/todos/actions";
+import {
+  getAllTodos,
+  clearAllTodos,
+  playbackRecord,
+} from "src/Store/todos/actions";
 import { StyledList, StyledPlay } from "./Todos.style";
 
 /**
@@ -11,19 +14,41 @@ import { StyledList, StyledPlay } from "./Todos.style";
  * and render them.
  */
 const Todos = () => {
-  // use hook instead of connect() HOC
+  // keep track of play state
+  const [play, setPlay] = useState(false);
+
+  // retrieve todos state from redux
   const { todos } = useSelector(({ todos }) => ({ todos }));
 
+  // retrieve our action stack from redux
+  const { userActions } = useSelector(({ userActions }) => ({ userActions }));
+
+  // to dispatch actions in redux
   const dispatch = useDispatch();
 
+  // dispatch to get all todos on mount
   useEffect(() => {
     // which will retrieve latest todos from localStorage
     dispatch(getAllTodos());
   }, []);
 
+  // clean all todos if play btn was pressed
+  useEffect(() => {
+    if (play) {
+      dispatch(clearAllTodos());
+    }
+  }, [play]);
+
+  // On play, remove from stack, and add to todos state, with 1s delay
+  useEffect(() => {
+    if (play) {
+      dispatch(playbackRecord(userActions));
+    }
+  }, [play, userActions]);
+
   return (
     <StyledList>
-      <StyledPlay>
+      <StyledPlay onClick={() => setPlay(true)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

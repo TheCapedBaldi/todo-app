@@ -1,8 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { createTodo } from "src/Store/todos/actions";
+import { addCreateAction } from "src/Store/userActions/actions";
 import Input from "src/atoms/Input";
 import TextArea from "src/atoms/TextArea";
 import Button from "src/atoms/Button";
@@ -13,6 +14,7 @@ import {
 } from "./Create.style";
 
 const Create = ({ onSubmit }) => {
+  const { userActions } = useSelector(({ userActions }) => ({ userActions }));
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [desc, setDesc] = React.useState("");
@@ -54,26 +56,33 @@ const Create = ({ onSubmit }) => {
   const onSubmitForm = (e) => {
     e.preventDefault();
 
+    const data = {
+      id: uuidv4(),
+      name,
+      description: desc,
+      date: new Date().toString(),
+    };
+
     // is it a controlled component? This checks that.
     if (typeof onSubmit === "function") {
-      onSubmit({
-        id: uuidv4(),
-        name,
-        description: desc,
-        date: new Date().toString(),
-      });
+      onSubmit(data);
       return;
     }
 
+    // form is validated
     if (validateForm()) {
-      dispatch(
-        createTodo({
-          id: uuidv4(),
-          name,
-          description: desc,
-          date: new Date().toString(),
-        })
-      );
+      // dispatch the action which will add the todo to redux
+      dispatch(createTodo(data));
+
+      // if its recording, then push to our action stack in redux
+      if (userActions.isRecording) {
+        dispatch(
+          addCreateAction({
+            id: data.id,
+            action: "CREATE",
+          })
+        );
+      }
     }
     clearForm();
   };

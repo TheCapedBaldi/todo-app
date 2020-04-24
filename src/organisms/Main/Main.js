@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import { startRecording, stopRecording } from "src/Store/userActions/actions";
 import Create from "src/organisms/Create";
 import Todos from "src/molecules/Todos";
 import {
@@ -11,9 +13,35 @@ import {
 } from "./Main.style";
 
 const Main = () => {
-  const [recordingState, setRecordingState] = useState(false);
+  // state object from redux
+  const { userActions } = useSelector(({ userActions }) => ({ userActions }));
 
+  // store a local copy of actions for replaying
+  const [actions, setActions] = useState(userActions.actions || []);
+
+  // determine the state of the recording
+  const [recording, setRecording] = useState(false);
+
+  // needed to dispatch actions in redux
+  const dispatch = useDispatch();
+
+  // get current location object
   const location = useLocation();
+
+  // hook to update if actions changes
+  useEffect(() => {
+    setActions(userActions.actions);
+  }, [userActions]);
+
+  // wrap our dispatch to avoid performance leak on multi component render
+  useEffect(() => {
+    if (recording) {
+      dispatch(startRecording(recording));
+    } else {
+      dispatch(stopRecording(recording));
+    }
+  }, [recording]);
+
   return (
     <StyledMain>
       <TransitionGroup>
@@ -34,10 +62,10 @@ const Main = () => {
         </CSSTransition>
       </TransitionGroup>
       <StyledPlayPause
-        play={recordingState}
-        onClick={() => setRecordingState(!recordingState)}
+        play={recording}
+        onClick={() => setRecording(!recording)}
       >
-        {recordingState ? (
+        {recording ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"

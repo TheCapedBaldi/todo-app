@@ -1,7 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { deleteTodoDispatch } from "src/Store/todos/actions";
+import { useDispatch, useSelector } from "react-redux";
 
+import { deleteTodoDispatch } from "src/Store/todos/actions";
+import { addRemoveAction } from "src/Store/userActions/actions";
 import {
   StyledContainer,
   StyledTodo,
@@ -20,6 +21,7 @@ import {
 } from "./Todo.style";
 
 const TodoTopControls = ({ date, id }) => {
+  const { userActions } = useSelector(({ userActions }) => ({ userActions }));
   const dispatch = useDispatch();
   let newDate = "";
   if (date) {
@@ -29,7 +31,17 @@ const TodoTopControls = ({ date, id }) => {
 
   const onDelete = (e) => {
     e.preventDefault();
+
     dispatch(deleteTodoDispatch(id));
+
+    if (userActions.isRecording) {
+      dispatch(
+        addRemoveAction({
+          id,
+          action: "DELETE",
+        })
+      );
+    }
   };
 
   return (
