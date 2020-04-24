@@ -1,4 +1,9 @@
-import { SUBMIT_TODO, FETCH_TODOS, DELETE_TODO } from "./constants";
+import {
+  SUBMIT_TODO,
+  FETCH_TODOS,
+  DELETE_TODO,
+  DELETE_TODOS,
+} from "./constants";
 
 /**
  *
@@ -8,15 +13,23 @@ import { SUBMIT_TODO, FETCH_TODOS, DELETE_TODO } from "./constants";
 const todos = (state = {}, { type, payload }) => {
   switch (type) {
     case SUBMIT_TODO:
-      return { ...state, payload };
+      return {
+        ...state,
+        [payload.id]: { ...payload },
+      };
     case FETCH_TODOS:
       return {
         ...payload,
       };
     case DELETE_TODO:
-      return {
-        ...Object.values(state).filter((todo) => todo.id !== payload),
-      };
+      return Object.keys(state).reduce((obj, k) => {
+        if (k !== payload) {
+          obj[k] = state[k];
+        }
+        return obj;
+      }, {});
+    case DELETE_TODOS:
+      return {};
     default:
       return state;
   }
