@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteTodoDispatch } from "src/Store/todos/actions";
 
 import {
   StyledContainer,
@@ -17,12 +19,18 @@ import {
   StyledTodoRight,
 } from "./Todo.style";
 
-const TodoTopControls = ({ date }) => {
+const TodoTopControls = ({ date, id }) => {
+  const dispatch = useDispatch();
   let newDate = "";
   if (date) {
     const [, month, dateNum] = date.split(" ");
     newDate = `${month} ${dateNum}`;
   }
+
+  const onDelete = (e) => {
+    e.preventDefault();
+    dispatch(deleteTodoDispatch(id));
+  };
 
   return (
     <StyledTodoControls>
@@ -61,7 +69,7 @@ const TodoTopControls = ({ date }) => {
             <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
           </svg>
         </StyledEditTodo>
-        <StyledDeleteTodo href="#">
+        <StyledDeleteTodo onClick={onDelete}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

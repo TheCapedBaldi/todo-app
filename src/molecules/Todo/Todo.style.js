@@ -65,7 +65,7 @@ export const StyledEditTodo = styled.a`
   }
 `;
 
-export const StyledDeleteTodo = styled.a`
+export const StyledDeleteTodo = styled.button`
   ${StyledFlexRow};
   padding: 5px;
   color: #d0d6e2;
