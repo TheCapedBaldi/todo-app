@@ -12,7 +12,7 @@ export const StyledItem = styled.li`
     color: #525f7f;
     font-size: 0.875rem;
     font-weight: 500;
-    min-width: 145px;
+    min-width: 125px;
     padding: 1rem;
     transition: all 0.15s ease;
 
