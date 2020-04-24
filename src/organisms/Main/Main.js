@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import Create from "src/organisms/Create";
 import Todos from "src/molecules/Todos";
-import Todo from "src/molecules/Todo";
 import {
   StyledMain,
   StyledRoutingSection,
@@ -25,7 +25,10 @@ const Main = () => {
           <StyledRoutingSection>
             <Switch location={location}>
               <Route exact path="/todos" component={Todos} />
-              <Route path="/todos/:id" component={Todo} />
+              <Route exact path="/create" component={Create} />
+              <Route path="*">
+                <Redirect to="/todos" />
+              </Route>
             </Switch>
           </StyledRoutingSection>
         </CSSTransition>
@@ -47,9 +50,7 @@ const Main = () => {
             strokeLinejoin="round"
             className="feather feather-pause-circle"
           >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="10" y1="15" x2="10" y2="9" />
-            <line x1="14" y1="15" x2="14" y2="9" />
+            <circle cx="12" cy="12" r="13" />
           </svg>
         ) : (
           <svg
@@ -65,7 +66,6 @@ const Main = () => {
             className="feather feather-play-circle"
           >
             <circle cx="12" cy="12" r="10" />
-            <polygon points="10 8 16 12 10 16 10 8" />
           </svg>
         )}
       </StyledPlayPause>

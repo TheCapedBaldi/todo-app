@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledMain = styled.main`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
 
   .fade-enter {
@@ -41,12 +42,7 @@ export const StyledRoutingSection = styled.section`
 `;
 
 export const StyledPlayPause = styled.button`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 1em;
   border-radius: 100%;
-  background-color: ${({ play }) => (!play ? "#f5365c" : "white")};
   padding: 1em;
   width: 70px;
   height: 70px;
@@ -56,17 +52,19 @@ export const StyledPlayPause = styled.button`
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: all 0.15s ease-in;
   cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  background-color: ${({ play }) => (!play ? "#f5365c" : "white")};
   color: ${({ play }) => (!play ? "white" : "#525f7f")};
 
   svg {
     transition: all 0.15s ease-in-out;
-  }
 
-  &:hover {
-    background-color: ${({ play }) => (play ? "#f5365c" : "#5e72e4")};
-
-    svg {
-      color: ${({ play }) => (play ? "#525f7f" : "white")};
+    circle {
+      fill: #b7334d;
+      stroke: #b7334d;
     }
   }
 `;
