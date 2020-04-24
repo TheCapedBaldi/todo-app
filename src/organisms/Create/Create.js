@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
+import { createTodo } from "src/Store/todos/actions";
 import Input from "src/atoms/Input";
 import TextArea from "src/atoms/TextArea";
 import Button from "src/atoms/Button";
@@ -11,6 +13,7 @@ import {
 } from "./Create.style";
 
 const Create = ({ onSubmit }) => {
+  const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [date, setDate] = React.useState("");
@@ -37,6 +40,13 @@ const Create = ({ onSubmit }) => {
     return true;
   };
 
+  const clearForm = () => {
+    setId("");
+    setDesc("");
+    setDate("");
+    setName("");
+  };
+
   /**
    * Will submit the form. i.e. if successful, store the values to localStorage
    * @param {*} e
@@ -56,23 +66,16 @@ const Create = ({ onSubmit }) => {
     }
 
     if (validateForm()) {
-      // fetch the todos list from localstorage
-      const db = JSON.parse(localStorage.getItem("todos")) || [];
-
-      // append the data to the localStorage
-      localStorage.setItem(
-        "todos",
-        JSON.stringify([
-          ...db,
-          {
-            id: uuidv4(),
-            name,
-            description: desc,
-            date: new Date().toString(),
-          },
-        ])
+      dispatch(
+        createTodo({
+          id: uuidv4(),
+          name,
+          description: desc,
+          date: new Date().toString(),
+        })
       );
     }
+    clearForm();
   };
 
   return (
