@@ -4,7 +4,7 @@ export const StyledNavbar = styled.ul`
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin: 3em 0 5em;
+  margin: 3em 0 1em;
   padding-left: 0;
 
   @media screen and (min-width: 200px) {
