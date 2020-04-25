@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { createTodo } from "src/Store/todos/actions";
-import { addCreateAction } from "src/Store/userActions/actions";
+import { addTodo } from "src/Store/todos/actions";
+import { addCreateToStack } from "src/Store/userActions/actions";
 import Input from "src/atoms/Input";
 import TextArea from "src/atoms/TextArea";
 import Button from "src/atoms/Button";
@@ -72,14 +72,14 @@ const Create = ({ onSubmit }) => {
     // form is validated
     if (validateForm()) {
       // dispatch the action which will add the todo to redux
-      dispatch(createTodo(data));
+      dispatch(addTodo(data));
 
       // if its recording, then push to our action stack in redux
       if (userActions.isRecording) {
         dispatch(
-          addCreateAction({
+          addCreateToStack({
             id: data.id,
-            action: "CREATE",
+            action: "ADD",
           })
         );
       }

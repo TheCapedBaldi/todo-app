@@ -1,9 +1,9 @@
 import {
-  IS_RECORDING,
-  NOT_RECORDING,
-  ACTION_CREATE,
-  REMOVE_TOP,
-  ACTION_DELETE,
+  ACTION_START_RECORDING,
+  ACTION_STOP_RECORDING,
+  ACTION_ADD_CREATE,
+  ACTION_ADD_DELETE,
+  ACTION_DELETE_TOP,
 } from "./constants";
 
 /**
@@ -13,22 +13,22 @@ import {
  */
 const userActions = (state = {}, { type, payload }) => {
   switch (type) {
-    case IS_RECORDING:
+    case ACTION_START_RECORDING:
       return {
         ...state,
         isRecording: true,
       };
-    case NOT_RECORDING:
+    case ACTION_STOP_RECORDING:
       return {
         ...state,
         isRecording: false,
       };
-    case REMOVE_TOP:
+    case ACTION_DELETE_TOP:
       return {
         ...state,
-        actions: state.actions.filter(({ id }) => id !== payload),
+        actions: [...state.actions.slice(0, 0), ...state.actions.slice(1)],
       };
-    case ACTION_CREATE:
+    case ACTION_ADD_CREATE:
       return {
         ...state,
         actions: [
@@ -39,7 +39,7 @@ const userActions = (state = {}, { type, payload }) => {
           },
         ],
       };
-    case ACTION_DELETE:
+    case ACTION_ADD_DELETE:
       return {
         ...state,
         actions: [

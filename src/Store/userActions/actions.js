@@ -1,9 +1,9 @@
 import {
-  IS_RECORDING,
-  NOT_RECORDING,
-  ACTION_CREATE,
-  ACTION_DELETE,
-  REMOVE_TOP,
+  ACTION_START_RECORDING,
+  ACTION_STOP_RECORDING,
+  ACTION_ADD_CREATE,
+  ACTION_ADD_DELETE,
+  ACTION_DELETE_TOP,
 } from "./constants";
 
 /**
@@ -11,28 +11,28 @@ import {
  * ============= Action Creators ==============
  * ============================================
  */
-export const isRecording = (payload) => ({
-  type: IS_RECORDING,
+export const actionStartRecording = (payload) => ({
+  type: ACTION_START_RECORDING,
   payload,
 });
 
-export const notRecording = (payload) => ({
-  type: NOT_RECORDING,
+export const actionStopRecording = (payload) => ({
+  type: ACTION_STOP_RECORDING,
   payload,
 });
 
-export const create = (payload) => ({
-  type: ACTION_CREATE,
+export const actionAddCreate = (payload) => ({
+  type: ACTION_ADD_CREATE,
   payload,
 });
 
-export const remove = (payload) => ({
-  type: ACTION_DELETE,
+export const actionAddDelete = (payload) => ({
+  type: ACTION_ADD_DELETE,
   payload,
 });
 
-export const removeTopAction = (payload) => ({
-  type: REMOVE_TOP,
+export const actionDeleteTop = (payload) => ({
+  type: ACTION_DELETE_TOP,
   payload,
 });
 
@@ -42,13 +42,15 @@ export const removeTopAction = (payload) => ({
  * ============================================
  */
 export const startRecording = (data) => (dispatch) =>
-  dispatch(isRecording(data));
+  dispatch(actionStartRecording(data));
 
 export const stopRecording = (data) => (dispatch) =>
-  dispatch(notRecording(data));
+  dispatch(actionStopRecording(data));
 
-export const addCreateAction = (data) => (dispatch) => dispatch(create(data));
+export const addCreateToStack = (data) => (dispatch) =>
+  dispatch(actionAddCreate(data));
 
-export const addRemoveAction = (data) => (dispatch) => dispatch(remove(data));
+export const addRemoveToStack = (data) => (dispatch) =>
+  dispatch(actionAddDelete(data));
 
-export const removeTop = (id) => (dispatch) => dispatch(removeTopAction(id));
+export const popStack = (id) => (dispatch) => dispatch(actionDeleteTop(id));

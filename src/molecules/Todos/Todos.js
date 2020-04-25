@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Todo from "src/molecules/Todo";
 import {
-  getAllTodos,
-  clearAllTodos,
+  fetchAllTodos,
+  deleteAllTodos,
   playbackRecord,
 } from "src/Store/todos/actions";
 import { StyledList, StyledPlay } from "./Todos.style";
@@ -29,13 +29,13 @@ const Todos = () => {
   // dispatch to get all todos on mount
   useEffect(() => {
     // which will retrieve latest todos from localStorage
-    dispatch(getAllTodos());
+    dispatch(fetchAllTodos());
   }, []);
 
   // clean all todos if play btn was pressed
   useEffect(() => {
     if (play) {
-      dispatch(clearAllTodos());
+      dispatch(deleteAllTodos());
     }
   }, [play]);
 

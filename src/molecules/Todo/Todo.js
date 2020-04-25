@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteTodoDispatch } from "src/Store/todos/actions";
-import { addRemoveAction } from "src/Store/userActions/actions";
+import { deleteTodo } from "src/Store/todos/actions";
+import { addRemoveToStack } from "src/Store/userActions/actions";
 import {
   StyledContainer,
   StyledTodo,
@@ -32,11 +32,11 @@ const TodoTopControls = ({ date, id }) => {
   const onDelete = (e) => {
     e.preventDefault();
 
-    dispatch(deleteTodoDispatch(id));
+    dispatch(deleteTodo(id));
 
     if (userActions.isRecording) {
       dispatch(
-        addRemoveAction({
+        addRemoveToStack({
           id,
           action: "DELETE",
         })

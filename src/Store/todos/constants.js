@@ -1,5 +1,5 @@
-export const SUBMIT_TODO = "SUBMIT_TODO";
-export const FETCH_TODOS = "FETCH_TODOS";
-export const EDIT_TODO = "EDIT_TODO";
-export const DELETE_TODO = "DELETE_TODO";
-export const DELETE_TODOS = "DELETE_TODOS";
+export const TODO_ADD = "TODO_ADD";
+export const TODO_FETCH_ALL = "TODO_FETCH_ALL";
+export const TODO_EDIT = "TODO_EDIT";
+export const TODO_DELETE = "TODO_DELETE";
+export const TODO_DELETE_ALL = "TODO_DELETE_ALL";

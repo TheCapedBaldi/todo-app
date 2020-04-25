@@ -1,8 +1,9 @@
 import {
-  SUBMIT_TODO,
-  FETCH_TODOS,
-  DELETE_TODO,
-  DELETE_TODOS,
+  TODO_ADD,
+  TODO_FETCH_ALL,
+  TODO_EDIT,
+  TODO_DELETE,
+  TODO_DELETE_ALL,
 } from "./constants";
 
 /**
@@ -12,23 +13,23 @@ import {
  */
 const todos = (state = {}, { type, payload }) => {
   switch (type) {
-    case SUBMIT_TODO:
+    case TODO_ADD:
       return {
         ...state,
         [payload.id]: { ...payload },
       };
-    case FETCH_TODOS:
+    case TODO_FETCH_ALL:
       return {
         ...payload,
       };
-    case DELETE_TODO:
+    case TODO_DELETE:
       return Object.keys(state).reduce((obj, k) => {
         if (k !== payload) {
           obj[k] = state[k];
         }
         return obj;
       }, {});
-    case DELETE_TODOS:
+    case TODO_DELETE_ALL:
       return {};
     default:
       return state;

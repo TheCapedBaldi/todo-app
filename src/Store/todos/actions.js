@@ -1,40 +1,40 @@
 import {
-  SUBMIT_TODO,
-  FETCH_TODOS,
-  EDIT_TODO,
-  DELETE_TODO,
-  DELETE_TODOS,
+  TODO_ADD,
+  TODO_FETCH_ALL,
+  TODO_EDIT,
+  TODO_DELETE,
+  TODO_DELETE_ALL,
 } from "./constants";
 
-import { removeTop } from "../userActions/actions";
+import { popStack } from "../userActions/actions";
 
 /**
  * ============================================
  * ============= Action Creators ==============
  * ============================================
  */
-export const submitTodo = (payload) => ({
-  type: SUBMIT_TODO,
+export const todoAdd = (payload) => ({
+  type: TODO_ADD,
   payload,
 });
 
-export const fetchTodos = (payload) => ({
-  type: FETCH_TODOS,
+export const todoFetchAll = (payload) => ({
+  type: TODO_FETCH_ALL,
   payload,
 });
 
-export const editTodo = (payload) => ({
-  type: EDIT_TODO,
+export const todoEdit = (payload) => ({
+  type: TODO_EDIT,
   payload,
 });
 
-export const deleteTodo = (payload) => ({
-  type: DELETE_TODO,
+export const todoDelete = (payload) => ({
+  type: TODO_DELETE,
   payload,
 });
 
-export const deleteTodos = (payload) => ({
-  type: DELETE_TODOS,
+export const todoDeleteAll = (payload) => ({
+  type: TODO_DELETE_ALL,
   payload,
 });
 
@@ -48,7 +48,7 @@ export const deleteTodos = (payload) => ({
  * Will create a new todo object in our app state and in localStorage
  * @param {Object} data
  */
-export const createTodo = (data) => (dispatch) => {
+export const addTodo = (data) => (dispatch) => {
   // fetch the todos list from localstorage
   const db = JSON.parse(localStorage.getItem("todos")) || {};
 
@@ -58,32 +58,31 @@ export const createTodo = (data) => (dispatch) => {
     JSON.stringify({ ...db, [data.id]: { ...data } })
   );
 
-  return dispatch(submitTodo(data));
+  return dispatch(todoAdd(data));
 };
 
 /**
  * Will retrieve all todos stored within localStorage.
  */
-export const getAllTodos = () => (dispatch) =>
-  dispatch(fetchTodos(JSON.parse(localStorage.getItem("todos")) || {}));
+export const fetchAllTodos = () => (dispatch) =>
+  dispatch(todoFetchAll(JSON.parse(localStorage.getItem("todos")) || {}));
 
 /**
  * Will delete all todos from our app state
  */
-export const clearAllTodos = () => (dispatch) => dispatch(deleteTodos());
+export const deleteAllTodos = () => (dispatch) => dispatch(todoDeleteAll());
 
 /**
  * Will edit todo task
  * @param {Object} data
  */
-export const editTodoDispatch = (data) => (dispatch) =>
-  dispatch(editTodo(data));
+export const editTodo = (data) => (dispatch) => dispatch(todoEdit(data));
 
 /**
  * Will delete the todo task from localstorage and app state
  * @param {String} id
  */
-export const deleteTodoDispatch = (id) => (dispatch) => {
+export const deleteTodo = (id) => (dispatch) => {
   let todos = JSON.parse(localStorage.getItem("todos")) || {};
 
   // return a new collection with the selected todo removed
@@ -94,7 +93,7 @@ export const deleteTodoDispatch = (id) => (dispatch) => {
 
   // localStorage.setItem("todos", JSON.stringify({ ...newTodos }));
 
-  return dispatch(deleteTodo(id));
+  return dispatch(todoDelete(id));
 };
 
 export const playbackRecord = (data) => (dispatch) => {
@@ -103,6 +102,8 @@ export const playbackRecord = (data) => (dispatch) => {
   let startPlaying = setInterval(() => {
     // destucture our actions
     const { actions } = data;
+
+    const actionsCopy = actions;
 
     // get the top element of our stack
     const top = actions && actions.length > 0 ? actions[0] : false;
@@ -114,12 +115,15 @@ export const playbackRecord = (data) => (dispatch) => {
     if (id) {
       console.log(top);
 
-      if (top.action === "CREATE") {
-        dispatch(createTodo(todos[id]));
-        dispatch(removeTop(id));
+      if (top.action === "ADD") {
+        dispatch(addTodo(todos[id]));
+        dispatch(popStack(id));
       }
 
-      if (top.action === "DELETE") dispatch(deleteTodoDispatch(id));
+      if (top.action === "DELETE") {
+        dispatch(deleteTodo(id));
+        dispatch(popStack(id));
+      }
     }
 
     // cleanup
