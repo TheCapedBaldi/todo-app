@@ -13,12 +13,6 @@ import {
 } from "./Main.style";
 
 const Main = () => {
-  // state object from redux
-  const { userActions } = useSelector(({ userActions }) => ({ userActions }));
-
-  // store a local copy of actions for replaying
-  const [actions, setActions] = useState(userActions.actions || []);
-
   // determine the state of the recording
   const [recording, setRecording] = useState(false);
 
@@ -27,11 +21,6 @@ const Main = () => {
 
   // get current location object
   const location = useLocation();
-
-  // hook to update if actions changes
-  useEffect(() => {
-    setActions(userActions.actions);
-  }, [userActions]);
 
   // wrap our dispatch to avoid performance leak on multi component render
   useEffect(() => {
