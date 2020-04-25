@@ -16,9 +16,7 @@ import {
 const Create = ({ onSubmit }) => {
   const { userActions } = useSelector(({ userActions }) => ({ userActions }));
   const dispatch = useDispatch();
-  const [id, setId] = React.useState("");
   const [desc, setDesc] = React.useState("");
-  const [date, setDate] = React.useState("");
   const [name, setName] = React.useState("");
 
   const handleChange = (e) => {
@@ -43,10 +41,8 @@ const Create = ({ onSubmit }) => {
   };
 
   const clearForm = () => {
-    setId("");
-    setDesc("");
-    setDate("");
     setName("");
+    setDesc("");
   };
 
   /**
