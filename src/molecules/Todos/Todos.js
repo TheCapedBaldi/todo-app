@@ -1,59 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
 import Todo from "src/molecules/Todo";
-import {
-  fetchAllTodos,
-  deleteAllTodos,
-  playbackRecord,
-} from "src/Store/todos/actions";
 import { StyledList, StyledBtn, StyledRow } from "./Todos.style";
+import { useTodos } from "src/hooks/useTodos";
 
 /**
  * Todos component which will retrieve todos from localStorage,
  * and render them.
  */
 const Todos = () => {
-  // keep track of play state
-  const [play, setPlay] = useState(false);
-
-  // retrieve todos state from redux
-  const { todos } = useSelector(({ todos }) => ({ todos }));
-
-  // retrieve our action stack from redux
-  const { userActions } = useSelector(({ userActions }) => ({ userActions }));
-
-  // to dispatch actions in redux
-  const dispatch = useDispatch();
-
-  // dispatch to get all todos on mount
-  useEffect(() => {
-    // which will retrieve latest todos from localStorage
-    dispatch(fetchAllTodos());
-  }, []);
-
-  // clean all todos if play btn was pressed
-  useEffect(() => {
-    if (play) {
-      // delete call todos, without deleting it from localstorage
-      dispatch(deleteAllTodos(false));
-    }
-  }, [play]);
-
-  // On play, remove from stack, and add to todos state, with 1s delay
-  useEffect(() => {
-    if (play) {
-      // start replaying user actions. Once done, toggle the play state
-      dispatch(playbackRecord(userActions, (cb) => setPlay(cb)));
-    }
-  }, [play, userActions]);
+  // using custom hook to abstract the side effects of updates from redux
+  const { togglePlay, todos, onDelete } = useTodos();
 
   return (
     <StyledList>
       <StyledRow>
         <StyledBtn
           disable={Object.keys(todos).length === 0}
-          onClick={() => setPlay(true)}
+          onClick={() => togglePlay(true)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +37,7 @@ const Todos = () => {
         <StyledBtn
           disableIconHover
           disable={Object.keys(todos).length === 0}
-          onClick={() => dispatch(deleteAllTodos(true))}
+          onClick={onDelete}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
