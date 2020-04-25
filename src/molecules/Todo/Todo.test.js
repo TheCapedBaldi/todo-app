@@ -1,26 +1,34 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import "jest-styled-components";
+import { renderHook } from "@testing-library/react-hooks";
+import { create } from "react-test-renderer";
 
+import { ReduxProvider } from "../../utility/withReduxProvider";
+import reducers from "../../Store/reducer";
+import configureStore from "../../Store";
 import Todo from "./Todo";
 
 describe("<Todo />", () => {
+  const store = configureStore;
+
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(
-      shallow(
-        <Todo
-          id={"jhghja-asd--8757asdjha"}
-          name={"Test headline"}
-          describe={"Test description"}
-          date={new Date().toString()}
-        />
-      ).get(0)
-    );
+    wrapper = ({ children }) => <ReduxProvider>{children}</ReduxProvider>;
   });
 
   it("should render Todo", () => {
-    expect(wrapper.html()).toMatchSnapshot();
+    const tree = create(
+      <ReduxProvider>
+        <Todo />
+      </ReduxProvider>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it("should return initial state of userAction", () => {
+    const { userActions } = reducers(undefined, {});
+    expect(userActions).toEqual({});
   });
 });
