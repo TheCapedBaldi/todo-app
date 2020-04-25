@@ -68,7 +68,10 @@ export const fetchAllTodos = () => (dispatch) =>
 /**
  * Will delete all todos from our app state
  */
-export const deleteAllTodos = () => (dispatch) => dispatch(todoDeleteAll());
+export const deleteAllTodos = (deleteFromLocalstorage) => (dispatch) => {
+  if (deleteFromLocalstorage) localStorage.removeItem("todos");
+  dispatch(todoDeleteAll());
+};
 
 /**
  * Will edit todo task

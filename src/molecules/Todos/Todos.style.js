@@ -1,8 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledList = styled.div``;
 
-export const StyledPlay = styled.button`
+export const StyledRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const StyledBtn = styled.button`
   border-radius: 100%;
   padding: 1em;
   width: 70px;
@@ -17,7 +23,17 @@ export const StyledPlay = styled.button`
   background-color: white;
   width: 60px;
   height: 60px;
-  margin: 0 0 1em 1em;
+  margin: 1em;
+
+  ${({ disable }) =>
+    disable
+      ? css`
+          opacity: 0.5;
+          pointer-events: none;
+          transform: scale(0.9);
+          cursor: none;
+        `
+      : ""}
 
   svg {
     color: #525f7f;
@@ -26,9 +42,14 @@ export const StyledPlay = styled.button`
   }
 
   &:hover {
-    svg {
-      fill: #f5365c;
-      stroke: #f5365c;
-    }
+    ${({ disableIconHover }) =>
+      !disableIconHover
+        ? css`
+            svg {
+              fill: #f5365c;
+              stroke: #f5365c;
+            }
+          `
+        : ""}
   }
 `;
