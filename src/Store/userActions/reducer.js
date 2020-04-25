@@ -3,7 +3,6 @@ import {
   ACTION_STOP_RECORDING,
   ACTION_ADD_CREATE,
   ACTION_ADD_DELETE,
-  ACTION_DELETE_TOP,
 } from "./constants";
 
 /**
@@ -22,11 +21,6 @@ const userActions = (state = {}, { type, payload }) => {
       return {
         ...state,
         isRecording: false,
-      };
-    case ACTION_DELETE_TOP:
-      return {
-        ...state,
-        actions: [...state.actions.slice(0, 0), ...state.actions.slice(1)],
       };
     case ACTION_ADD_CREATE:
       return {

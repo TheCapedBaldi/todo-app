@@ -6,8 +6,6 @@ import {
   TODO_DELETE_ALL,
 } from "./constants";
 
-import { popStack } from "../userActions/actions";
-
 /**
  * ============================================
  * ============= Action Creators ==============
@@ -96,37 +94,56 @@ export const deleteTodo = (id) => (dispatch) => {
   return dispatch(todoDelete(id));
 };
 
-export const playbackRecord = (data) => (dispatch) => {
+/**
+ * Action which will replay the users actions from the initial
+ * state of the app where user starts to record, until where user stoped
+ * the record
+ * @param {*} data - the 'userAction' reducer from redux
+ * @param {*} cb - callback to passback to the component
+ */
+export const playbackRecord = (data, cb) => (dispatch) => {
   const todos = JSON.parse(localStorage.getItem("todos")) || {};
 
+  // destucture our actions
+  const { actions } = data;
+
+  /**
+   * important: clone the actions array (with spread), as to not affect
+   * the redux ations stack, since js is call-by-reference. That way
+   * the user can replay again without refresh.
+   **/
+  const cacheActions = [...(actions || [])];
+
   let startPlaying = setInterval(() => {
-    // destucture our actions
-    const { actions } = data;
-
-    const actionsCopy = actions;
-
     // get the top element of our stack
-    const top = actions && actions.length > 0 ? actions[0] : false;
+    const top =
+      cacheActions && cacheActions.length > 0 ? cacheActions[0] : false;
+
+    // i.e. stack has no more actions
+    if (!top) {
+      // send a callback to indicate that the stack is empty, and toggle play again
+      cb(false);
+
+      // cleanup
+      clearInterval(startPlaying);
+    }
 
     // get the id of the top element
     const id = top ? top.id : false;
 
     // if id is valid
     if (id) {
-      console.log(top);
-
       if (top.action === "ADD") {
         dispatch(addTodo(todos[id]));
-        dispatch(popStack(id));
+        // pop from our action stack
+        cacheActions.shift();
       }
 
       if (top.action === "DELETE") {
         dispatch(deleteTodo(id));
-        dispatch(popStack(id));
+        // pop from our action stack
+        cacheActions.shift();
       }
     }
-
-    // cleanup
-    clearInterval(startPlaying);
   }, 1000);
 };

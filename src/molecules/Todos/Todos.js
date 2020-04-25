@@ -42,7 +42,7 @@ const Todos = () => {
   // On play, remove from stack, and add to todos state, with 1s delay
   useEffect(() => {
     if (play) {
-      dispatch(playbackRecord(userActions));
+      dispatch(playbackRecord(userActions, (cb) => setPlay(cb)));
     }
   }, [play, userActions]);
 
