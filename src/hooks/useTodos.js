@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // local components
+import { usePreventWindowUnload } from "src/hooks/usePreventWindowUnload";
 import {
   deleteAllTodos,
   fetchAllTodos,
@@ -51,6 +52,15 @@ export const useTodos = () => {
       dispatch(playbackRecord(userActions, (cb) => togglePlay(cb)));
     }
   }, [play, userActions]);
+
+  /**
+   * The first element of array is to tell the hook the browser
+   * is allowed to unload. Second element is to update when todos is
+   * updated.
+   */
+  usePreventWindowUnload([true, todos], (e) => {
+    localStorage.setItem("todos", JSON.stringify({ ...todos }));
+  });
 
   return { play, togglePlay, todos, userActions, onDelete };
 };
