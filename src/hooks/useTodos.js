@@ -8,7 +8,7 @@ import {
   deleteAllTodos,
   fetchAllTodos,
   playbackRecord,
-} from "../Store/todos/actions";
+} from "src/Store/todos/actions";
 
 /**
  * Custom hook which abstracts the side-effects from the component.
