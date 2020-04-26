@@ -1,7 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Todos /> should render Todos 1`] = `
-.c0 {
+.c0 .item-enter {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.c0 .item-enter.item-enter-active {
+  -webkit-transition: all 0.6s cubic-bezier(0.23,1.12,0.4,1.12);
+  transition: all 0.6s cubic-bezier(0.23,1.12,0.4,1.12);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.c0 .item-exit {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.c0 .item-exit.fade-exit-active {
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.6s cubic-bezier(0.23,1.12,0.4,1.12);
+  transition: all 0.6s cubic-bezier(0.23,1.12,0.4,1.12);
+}
+
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -14,52 +42,6 @@ exports[`<Todos /> should render Todos 1`] = `
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-}
-
-.c1 {
-  border-radius: 100%;
-  padding: 1em;
-  width: 70px;
-  height: 70px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(50,50,93,0.11),0 1px 3px rgba(0,0,0,0.08);
-  -webkit-transition: all 0.15s ease-in;
-  transition: all 0.15s ease-in;
-  cursor: pointer;
-  border-radius: 0.4em;
-  background-color: white;
-  width: 60px;
-  height: 60px;
-  margin: 1em;
-  opacity: 0.5;
-  pointer-events: none;
-  -webkit-transform: scale(0.9);
-  -ms-transform: scale(0.9);
-  transform: scale(0.9);
-  cursor: none;
-}
-
-.c1 svg {
-  color: #525f7f;
-  -webkit-transition: all 0.15s ease-in;
-  transition: all 0.15s ease-in;
-  fill: transparent;
-}
-
-.c1:hover svg {
-  fill: #f5365c;
-  stroke: #f5365c;
 }
 
 .c2 {
@@ -103,14 +85,60 @@ exports[`<Todos /> should render Todos 1`] = `
   fill: transparent;
 }
 
+.c2:hover svg {
+  fill: #f5365c;
+  stroke: #f5365c;
+}
+
+.c3 {
+  border-radius: 100%;
+  padding: 1em;
+  width: 70px;
+  height: 70px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(50,50,93,0.11),0 1px 3px rgba(0,0,0,0.08);
+  -webkit-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+  cursor: pointer;
+  border-radius: 0.4em;
+  background-color: white;
+  width: 60px;
+  height: 60px;
+  margin: 1em;
+  opacity: 0.5;
+  pointer-events: none;
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+  cursor: none;
+}
+
+.c3 svg {
+  color: #525f7f;
+  -webkit-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+  fill: transparent;
+}
+
 <div
-  className=""
+  className="c0"
 >
   <div
-    className="c0"
+    className="c1"
   >
     <button
-      className="c1"
+      className="c2"
       onClick={[Function]}
     >
       <svg
@@ -131,7 +159,7 @@ exports[`<Todos /> should render Todos 1`] = `
       </svg>
     </button>
     <button
-      className="c2"
+      className="c3"
       onClick={[Function]}
     >
       <svg
@@ -167,5 +195,8 @@ exports[`<Todos /> should render Todos 1`] = `
       </svg>
     </button>
   </div>
+  <div
+    className="todo-list"
+  />
 </div>
 `;
