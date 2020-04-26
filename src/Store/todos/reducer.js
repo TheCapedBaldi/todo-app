@@ -22,6 +22,15 @@ const todos = (state = {}, { type, payload }) => {
       return {
         ...payload,
       };
+    case TODO_EDIT:
+      return Object.keys(state).reduce((obj, k) => {
+        if (k === payload.id) {
+          obj[k] = payload.data;
+        } else {
+          obj[k] = state[k];
+        }
+        return obj;
+      }, {});
     case TODO_DELETE:
       return Object.keys(state).reduce((obj, k) => {
         if (k !== payload) {

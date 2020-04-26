@@ -124,17 +124,20 @@ export const playbackRecord = (data, cb) => (dispatch) => {
 
     // if id is valid
     if (id) {
-      if (top.action === "ADD") {
-        dispatch(addTodo(todos[id]));
-        // pop from our action stack
-        cacheActions.shift();
+      // dispatch action respectively
+      switch (top.action) {
+        case "ADD":
+          dispatch(addTodo(todos[id]));
+          break;
+        case "DELETE":
+          dispatch(deleteTodo(id));
+          break;
+        case "EDIT":
+          dispatch(editTodo({ id, data: top?.data }));
+          break;
       }
 
-      if (top.action === "DELETE") {
-        dispatch(deleteTodo(id));
-        // pop from our action stack
-        cacheActions.shift();
-      }
+      cacheActions.shift();
     }
   }, 1000);
 };
