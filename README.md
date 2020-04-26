@@ -1,5 +1,6 @@
 # Todo App
 ![Travis (.com) branch](https://img.shields.io/travis/com/NaseebullahSafi/todo-app/master)
+
 Simplified SPA Todo application using Reactjs, Styled Components, redux, Jest, React Router; fully automated using Travis, and automatic deployment to Netlify
 
 The project is built from scratch without any CLI or scaffolding, using webpack for development and production environment. **More info below.**
