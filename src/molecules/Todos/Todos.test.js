@@ -100,7 +100,11 @@ describe("<Todos />", () => {
           userActions: {
             isRecording: false,
             actions: [
-              { id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b", action: "ADD" },
+              {
+                id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b",
+                action: "ADD",
+                data: {},
+              },
             ],
           },
         },
@@ -109,7 +113,11 @@ describe("<Todos />", () => {
       expect(userActions).toEqual({
         isRecording: false,
         actions: [
-          { id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b", action: "ADD" },
+          {
+            id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b",
+            action: "ADD",
+            data: {},
+          },
         ],
       });
     });
@@ -128,7 +136,11 @@ describe("<Todos />", () => {
       expect(userActions).toEqual({
         isRecording: true,
         actions: [
-          { id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b", action: "DELETE" },
+          {
+            id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b",
+            action: "DELETE",
+            data: {},
+          },
         ],
       });
     });
