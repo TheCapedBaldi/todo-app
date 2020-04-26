@@ -80,22 +80,10 @@ export const deleteAllTodos = (deleteFromLocalstorage) => (dispatch) => {
 export const editTodo = (data) => (dispatch) => dispatch(todoEdit(data));
 
 /**
- * Will delete the todo task from localstorage and app state
+ * Will delete the todo task from the app state
  * @param {String} id
  */
-export const deleteTodo = (id) => (dispatch) => {
-  let todos = JSON.parse(localStorage.getItem("todos")) || {};
-
-  // return a new collection with the selected todo removed
-  const newTodos = Object.keys(todos).reduce((obj, k) => {
-    if (k !== id) obj[k] = todos[k];
-    return obj;
-  }, {});
-
-  // localStorage.setItem("todos", JSON.stringify({ ...newTodos }));
-
-  return dispatch(todoDelete(id));
-};
+export const deleteTodo = (id) => (dispatch) => dispatch(todoDelete(id));
 
 /**
  * Action which will replay the users actions from the initial
