@@ -4,6 +4,7 @@ import renderer from "react-test-renderer";
 import "jest-styled-components";
 import { v4 as uuidv4 } from "uuid";
 
+import { ReduxProvider } from "../../utility/withReduxProvider";
 import Create from "./Create";
 
 describe("<Create />", () => {
@@ -16,7 +17,13 @@ describe("<Create />", () => {
   useStateSpy.mockImplementation((init) => [init, setState]);
 
   beforeEach(() => {
-    wrapper = mount(shallow(<Create onSubmit={onSubmitSpy} />).get(0));
+    wrapper = mount(
+      shallow(
+        <ReduxProvider>
+          <Create onSubmit={onSubmitSpy} />
+        </ReduxProvider>
+      ).get(0)
+    );
   });
 
   afterEach(() => {
