@@ -31,6 +31,46 @@ export const StyledTodo = styled.div`
   }
 `;
 
+export const StyledBtn = styled.button`
+  ${StyledFlexRow};
+  padding: 5px;
+  color: #d0d6e2;
+  border: 1px dashed #d0d6e2;
+  border-radius: 5px;
+  transition: all 0.15s ease-in-out;
+  margin-right: ${({ marginRight }) => (marginRight ? `1em` : 0)};
+  justify-content: center;
+
+  ${({ circle }) =>
+    circle
+      ? css`
+          border-radius: 22px;
+          border-top-left-radius: 0;
+        `
+      : ""}
+
+  ${({ check }) =>
+    check
+      ? css`
+          border-color: transparent;
+          background-color: #2dce89;
+          svg {
+            color: white;
+          }
+        `
+      : ""}
+
+  &:hover {
+    border: 1px dashed transparent;
+    background-color: ${({ check, remove }) => {
+      if (check) return `#26af74`;
+      if (remove) return `#f5365c`;
+      return `#5e72e4`;
+    }};
+    color: white;
+  }
+`;
+
 export const StyledTodoControls = styled.div`
   ${StyledFlexRow};
   justify-content: space-between;
@@ -45,38 +85,6 @@ export const StyledDateContainer = styled.div`
 
   svg {
     margin-right: 6px;
-  }
-`;
-
-export const StyledEditTodo = styled.a`
-  ${StyledFlexRow};
-  padding: 5px;
-  color: #d0d6e2;
-  border: 1px dashed #d0d6e2;
-  border-radius: 5px;
-  transition: all 0.15s ease-in-out;
-  margin-right: 1em;
-  justify-content: center;
-
-  &:hover {
-    border: 1px dashed transparent;
-    background-color: #5e72e4;
-    color: white;
-  }
-`;
-
-export const StyledDeleteTodo = styled.button`
-  ${StyledFlexRow};
-  padding: 5px;
-  color: #d0d6e2;
-  border: 1px dashed #d0d6e2;
-  border-radius: 5px;
-  transition: all 0.15s ease-in-out;
-
-  &:hover {
-    border: 1px dashed transparent;
-    background-color: #5e72e4;
-    color: white;
   }
 `;
 
@@ -108,30 +116,6 @@ export const StyledTodoLeft = styled.div`
   ${StyledFlexRow};
 `;
 
-export const StyledTodoRight = styled.div`
-  ${StyledFlexRow};
-
-  a {
-    border: 1px dashed #d0d6e2;
-    border-radius: 22px;
-    padding: 2px 2px;
-    display: flex;
-    align-items: center;
-    border-top-left-radius: 0;
-    color: #a3a9b7;
-    transition: all 0.15s ease-in;
-
-    &:hover {
-      border: 1px dashed transparent;
-      background-color: #5e72e4;
-      color: white;
-    }
-  }
-
-  svg {
-  }
-`;
-
 export const StyledTodoAttachments = styled.div`
   ${StyledFlexRow};
   justify-content: flex-start;
@@ -151,4 +135,9 @@ export const StyledTodoChat = styled.div`
   svg {
     margin-right: 4px;
   }
+`;
+
+export const StyledInputContainer = styled.div`
+  margin-top: ${({ marginTop }) => (marginTop ? `2em` : 0)};
+  margin-bottom: ${({ marginBottom }) => (marginBottom ? `2em` : 0)};
 `;
