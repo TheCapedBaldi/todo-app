@@ -3,6 +3,7 @@ import {
   ACTION_STOP_RECORDING,
   ACTION_ADD_CREATE,
   ACTION_ADD_DELETE,
+  ACTION_ADD_UPDATE,
 } from "./constants";
 
 /**
@@ -29,6 +30,7 @@ const userActions = (state = {}, { type, payload }) => {
           ...(state.actions || []),
           {
             id: payload.id,
+            data: {},
             action: payload.action,
           },
         ],
@@ -40,9 +42,15 @@ const userActions = (state = {}, { type, payload }) => {
           ...(state.actions || []),
           {
             id: payload.id,
+            data: {},
             action: payload.action,
           },
         ],
+      };
+    case ACTION_ADD_UPDATE:
+      return {
+        ...state,
+        actions: [...(state.actions || []), { ...payload }],
       };
     default:
       return state;

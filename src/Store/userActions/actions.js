@@ -3,6 +3,7 @@ import {
   ACTION_STOP_RECORDING,
   ACTION_ADD_CREATE,
   ACTION_ADD_DELETE,
+  ACTION_ADD_UPDATE,
 } from "./constants";
 
 /**
@@ -30,6 +31,11 @@ export const actionAddDelete = (payload) => ({
   payload,
 });
 
+export const actionAddUpdate = (payload) => ({
+  type: ACTION_ADD_UPDATE,
+  payload,
+});
+
 /**
  * ============================================
  * =========== Action Dispatchers  ============
@@ -46,3 +52,6 @@ export const addCreateToStack = (data) => (dispatch) =>
 
 export const addRemoveToStack = (data) => (dispatch) =>
   dispatch(actionAddDelete(data));
+
+export const addEditToStack = (data) => (dispatch) =>
+  dispatch(actionAddUpdate(data));
