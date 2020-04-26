@@ -38,39 +38,6 @@ exports[`<Todo /> should render Todo 1`] = `
   word-wrap: break-word;
 }
 
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-size: 12px;
-  font-weight: bold;
-  color: #d0d6e2;
-}
-
-.c2 svg {
-  margin-right: 6px;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -114,12 +81,80 @@ exports[`<Todo /> should render Todo 1`] = `
   border-radius: 5px;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
+  margin-right: 0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c5:hover {
   border: 1px dashed transparent;
+  background-color: #f5365c;
+  color: white;
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 5px;
+  color: #d0d6e2;
+  border: 1px dashed #d0d6e2;
+  border-radius: 5px;
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  margin-right: 0;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 22px;
+  border-top-left-radius: 0;
+}
+
+.c13:hover {
+  border: 1px dashed transparent;
   background-color: #5e72e4;
   color: white;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #d0d6e2;
+}
+
+.c2 svg {
+  margin-right: 6px;
 }
 
 .c6 {
@@ -165,41 +200,6 @@ exports[`<Todo /> should render Todo 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
-
-.c13 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c13 a {
-  border: 1px dashed #d0d6e2;
-  border-radius: 22px;
-  padding: 2px 2px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-top-left-radius: 0;
-  color: #a3a9b7;
-  -webkit-transition: all 0.15s ease-in;
-  transition: all 0.15s ease-in;
-}
-
-.c13 a:hover {
-  border: 1px dashed transparent;
-  background-color: #5e72e4;
-  color: white;
 }
 
 .c11 {
@@ -280,15 +280,15 @@ exports[`<Todo /> should render Todo 1`] = `
         />
       </svg>
       <span>
-        
+        Apr 26
       </span>
     </div>
     <div
       className="c3"
     >
-      <a
+      <button
         className="c4"
-        href="#"
+        onClick={[Function]}
       >
         <svg
           className="feather feather-edit-2"
@@ -306,7 +306,7 @@ exports[`<Todo /> should render Todo 1`] = `
             d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
           />
         </svg>
-      </a>
+      </button>
       <button
         className="c5"
         onClick={[Function]}
@@ -347,10 +347,14 @@ exports[`<Todo /> should render Todo 1`] = `
   </div>
   <h1
     className="c6"
-  />
+  >
+    Todo Title
+  </h1>
   <p
     className="c7"
-  />
+  >
+    Todo Description
+  </p>
   <hr
     className="c8"
   />
@@ -407,39 +411,35 @@ exports[`<Todo /> should render Todo 1`] = `
         </span>
       </div>
     </div>
-    <div
+    <button
       className="c13"
     >
-      <a
-        href="#"
+      <svg
+        className="feather feather-plus"
+        fill="none"
+        height="16"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          className="feather feather-plus"
-          fill="none"
-          height="16"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="12"
-            x2="12"
-            y1="5"
-            y2="19"
-          />
-          <line
-            x1="5"
-            x2="19"
-            y1="12"
-            y2="12"
-          />
-        </svg>
-      </a>
-    </div>
+        <line
+          x1="12"
+          x2="12"
+          y1="5"
+          y2="19"
+        />
+        <line
+          x1="5"
+          x2="19"
+          y1="12"
+          y2="12"
+        />
+      </svg>
+    </button>
   </div>
 </div>
 `;

@@ -21,7 +21,7 @@ describe("<Todo />", () => {
   it("should render Todo", () => {
     const tree = create(
       <ReduxProvider>
-        <Todo />
+        <Todo id="7b2a3db5-af85-42a5-9440-fa4dc6c7e12b" />
       </ReduxProvider>
     ).toJSON();
     expect(tree).toMatchSnapshot();
@@ -80,7 +80,114 @@ describe("<Todo />", () => {
       expect(userActions).toEqual({
         isRecording: true,
         actions: [
-          { id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b", action: "ADD" },
+          {
+            id: "7b2a3db5-af85-42a5-9440-fa4dc6c7e12b",
+            action: "ADD",
+            data: {},
+          },
+        ],
+      });
+    });
+
+    it("should edit todo", () => {
+      const { todos } = reducers(
+        {
+          todos: {
+            "ff1e494c-e8be-4049-a9dd-606c3d7197de": {
+              id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+              name: "Test Todo",
+              description: "Test Todo description",
+              date: "Sun Apr 26 2020 16:56:52 GMT+0100 (British Summer Time)",
+            },
+          },
+          userActions: {
+            isRecording: true,
+            actions: [
+              {
+                id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+                data: {},
+                action: "ADD",
+              },
+            ],
+          },
+        },
+        {
+          type: "TODO_EDIT",
+          payload: {
+            id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+            data: {
+              id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+              name: "Test Todo updated",
+              description: "Test Todo description",
+              date: "Sun Apr 26 2020 16:57:07 GMT+0100 (British Summer Time)",
+            },
+          },
+        }
+      );
+      expect(todos).toEqual({
+        "ff1e494c-e8be-4049-a9dd-606c3d7197de": {
+          id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+          name: "Test Todo updated",
+          description: "Test Todo description",
+          date: "Sun Apr 26 2020 16:57:07 GMT+0100 (British Summer Time)",
+        },
+      });
+    });
+
+    it("should register edit action to our stack", () => {
+      const { userActions } = reducers(
+        {
+          todos: {
+            "ff1e494c-e8be-4049-a9dd-606c3d7197de": {
+              id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+              name: "Test Todo updated",
+              description: "Test Todo description",
+              date: "Sun Apr 26 2020 16:57:07 GMT+0100 (British Summer Time)",
+            },
+          },
+          userActions: {
+            isRecording: true,
+            actions: [
+              {
+                id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+                data: {},
+                action: "ADD",
+              },
+            ],
+          },
+        },
+        {
+          type: "ACTION_ADD_UPDATE",
+          payload: {
+            id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+            data: {
+              id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+              name: "Test Todo updated",
+              description: "Test Todo description",
+              date: "Sun Apr 26 2020 16:57:07 GMT+0100 (British Summer Time)",
+            },
+            action: "EDIT",
+          },
+        }
+      );
+      expect(userActions).toEqual({
+        isRecording: true,
+        actions: [
+          {
+            id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+            data: {},
+            action: "ADD",
+          },
+          {
+            id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+            data: {
+              id: "ff1e494c-e8be-4049-a9dd-606c3d7197de",
+              name: "Test Todo updated",
+              description: "Test Todo description",
+              date: "Sun Apr 26 2020 16:57:07 GMT+0100 (British Summer Time)",
+            },
+            action: "EDIT",
+          },
         ],
       });
     });
