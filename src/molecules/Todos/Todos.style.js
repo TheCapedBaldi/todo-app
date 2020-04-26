@@ -1,6 +1,24 @@
 import styled, { css } from "styled-components";
 
-export const StyledList = styled.div``;
+export const StyledList = styled.div`
+  .item-enter {
+    transform: scale(1.2);
+  }
+
+  .item-enter.item-enter-active {
+    transition: all 0.6s cubic-bezier(0.23, 1.12, 0.4, 1.12);
+    transform: scale(1);
+  }
+
+  .item-exit {
+    transform: scale(1);
+  }
+
+  .item-exit.fade-exit-active {
+    transform: scale(0);
+    transition: all 0.6s cubic-bezier(0.23, 1.12, 0.4, 1.12);
+  }
+`;
 
 export const StyledRow = styled.div`
   display: flex;
