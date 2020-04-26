@@ -1,4 +1,5 @@
 import React from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import Todo from "src/molecules/Todo";
 import { StyledList, StyledBtn, StyledRow } from "./Todos.style";
@@ -10,14 +11,20 @@ import { useTodos } from "src/hooks/useTodos";
  */
 const Todos = () => {
   // using custom hook to abstract the side effects of updates from redux
-  const { togglePlay, todos, onDelete } = useTodos();
+  const { animationFinished, play, togglePlay, todos, onDelete } = useTodos();
 
   return (
     <StyledList>
       <StyledRow>
         <StyledBtn
-          disable={Object.keys(todos).length === 0}
-          onClick={() => togglePlay(true)}
+          disable={
+            Object.keys(todos).length === 0 || !(animationFinished && !play)
+          }
+          onClick={() => {
+            if (animationFinished && !play) {
+              togglePlay(true);
+            }
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,10 +65,17 @@ const Todos = () => {
           </svg>
         </StyledBtn>
       </StyledRow>
-      {Object.keys(todos).map((k) => {
-        const todo = todos[k];
-        return <Todo {...todo} key={k} />;
-      })}
+      <TransitionGroup className="todo-list">
+        {Object.keys(todos).map((k) => {
+          const todo = todos[k];
+
+          return (
+            <CSSTransition key={todo.id} timeout={500} classNames="item">
+              <Todo {...todo} key={k} />
+            </CSSTransition>
+          );
+        })}
+      </TransitionGroup>
     </StyledList>
   );
 };

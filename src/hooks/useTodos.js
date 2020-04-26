@@ -16,6 +16,7 @@ import {
 export const useTodos = () => {
   // keep track of the play state
   const [play, setPlay] = useState(false);
+  const [animationFinished, setAnimationFinished] = useState(true);
 
   // get the two reducers from redux
   const { todos, userActions } = useSelector(({ todos, userActions }) => ({
@@ -49,7 +50,13 @@ export const useTodos = () => {
   useEffect(() => {
     if (play) {
       // start replaying user actions. Once done, toggle the play state
-      dispatch(playbackRecord(userActions, (cb) => togglePlay(cb)));
+      dispatch(
+        playbackRecord(userActions, (cb) => {
+          togglePlay(cb);
+          // indicate the animation is finished to enable the play button again
+          setAnimationFinished(true);
+        })
+      );
     }
   }, [play, userActions]);
 
@@ -62,5 +69,5 @@ export const useTodos = () => {
     localStorage.setItem("todos", JSON.stringify({ ...todos }));
   });
 
-  return { play, togglePlay, todos, userActions, onDelete };
+  return { play, togglePlay, animationFinished, todos, userActions, onDelete };
 };
